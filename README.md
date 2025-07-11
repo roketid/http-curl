@@ -304,6 +304,40 @@ docker build -t your-registry/http-curl .
 docker push your-registry/http-curl
 ```
 
+### GitHub Actions (CI/CD)
+This repository includes a GitHub Actions workflow that automatically builds and pushes Docker images to the GitHub Container Registry (GHCR).
+
+#### Features:
+- **Automatic builds**: Triggers on pushes to main/master branch and on tags
+- **Pull request builds**: Builds on PRs for testing (without pushing)
+- **Multi-platform support**: Uses Docker Buildx for efficient builds
+- **Caching**: Uses GitHub Actions cache for faster builds
+- **Smart tagging**: Automatically tags images based on git refs and semantic versions
+
+#### Usage:
+The workflow automatically runs when you:
+1. Push to `main` or `master` branch
+2. Create a tag (e.g., `v1.0.0`)
+3. Create a pull request
+
+#### Accessing the Docker Image:
+```bash
+# Pull the latest image
+docker pull ghcr.io/roketid/http-curl:latest
+
+# Pull a specific version
+docker pull ghcr.io/roketid/http-curl:v1.0.0
+
+# Run the container
+docker run -p 8080:8080 ghcr.io/roketid/http-curl:latest
+```
+
+#### Available Tags:
+- `latest`: Latest commit on main branch
+- `v*`: Semantic version tags (e.g., `v1.0.0`, `v1.0`)
+- `main-*`: Branch-specific tags with commit SHA
+- `pr-*`: Pull request tags
+
 ### Cloud Platforms
 This service can be deployed on:
 - AWS (ECS, EKS, Lambda)
